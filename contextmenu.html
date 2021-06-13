@@ -31,13 +31,13 @@
             document.addEventListener("contextmenu", e => {
                 e.preventDefault();    
                 // get the browser's window width;
-                let cXLimit = window.innerWidth;
-                let cYLimit = window.innerHeight;
+                let windowXLimit = window.innerWidth;
+                let windowYLimit = window.innerHeight;
                 // get where the mouse is clicking;
                 let cX = Math.round(e.clientX)
                 let cY = Math.round(e.clientY)
                 // if its within the browser winow horizontally and vertically;
-                if (cXLimit - cX > cmWidth && cYLimit - cY < cmHeight) {
+                if (windowXLimit - cX > cmWidth && windowYLimit - cY < cmHeight) {
                     cm.style.left = cX + "px";
                     cm.style.top = cY - cmHeight + "px";
                     cm.style.display = "block";
@@ -47,7 +47,7 @@
                     } else {
                         cm.style.left = cX - cmWidth + "px";
                     }
-                    if (cYLimit - cY < cmHeight) {
+                    if (windowYLimit - cY < cmHeight) {
                         cm.style.top = cY - cmHeight + "px";
                     } else {
                         cm.style.top = cY + "px";
