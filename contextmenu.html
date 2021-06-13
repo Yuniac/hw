@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Touch Events</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
+        <style>
+            #cm {width: 200px;height: 250px;background-color: #f7ecec; border: 1px solid #000;font-size: medium;display: none;position:absolute;}
+            #cm ul li {list-style-type: none; padding: 10px;margin: 10px;}
+        </style>
+    </head>
+    <body>
+        <div id="cm">
+            <ul>
+                <li>test1</li>
+                <li>test2</li>
+                <li>test3</li>
+                <li>test4</li>
+            </ul>
+        </div>
+        <script>
+            let cm = document.querySelector("#cm")
+            document.addEventListener("contextmenu",e => {
+                e.preventDefault()
+                let cX = Math.round(e.clientX)
+                let cY = Math.round(e.clientY)
+                cm.style.top = cY+"px"
+                cm.style.left = cX+"px"
+                cm.style.display ="block"
+            })
+
+        </script>
