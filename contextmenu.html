@@ -2,33 +2,65 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Touch Events</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
+        <title>Touch Events</title>
         <style>
-            #cm {width: 200px;height: 250px;background-color: #f7ecec; border: 1px solid #000;font-size: medium;display: none;position:absolute;}
-            #cm ul li {list-style-type: none; padding: 10px;margin: 10px;}
+            * {margin: 0;padding: 0;box-sizing: border-box;}
+            html, body {width: 100%;height: 100%;}
+            #cm {width: 200px;height: 250px;background-color: #f7ecec; border: 1px solid #000;font-size: medium;display: none;position:absolute;top: 0;left: 0;}
+            ul {width: 100%;height:100%;display: flex;flex-flow: column nowrap;justify-content: space-between;align-content: center;}
+            li {list-style-type: none; padding: 5px;cursor: pointer;width: 100%;font-size: 2rem;transition: 0.4s all ease-in-out;}
+            li:hover {background-color: #e4dede;color: purple;}
         </style>
     </head>
     <body>
         <div id="cm">
             <ul>
-                <li>test1</li>
-                <li>test2</li>
-                <li>test3</li>
-                <li>test4</li>
+                <li>Home</li>
+                <li>About</li>
+                <li>Contact us</li>
+                <li>Options</li>
             </ul>
         </div>
         <script>
+            let cmWidth = 200;
+            let cmHeight = 250;
             let cm = document.querySelector("#cm")
-            document.addEventListener("contextmenu",e => {
-                e.preventDefault()
+            document.addEventListener("contextmenu", e => {
+                e.preventDefault();    
+                // get the browser's window width;
+                let cXLimit = window.innerWidth;
+                let cYLimit = window.innerHeight;
+                // get where the mouse is clicking;
                 let cX = Math.round(e.clientX)
                 let cY = Math.round(e.clientY)
-                cm.style.top = cY+"px"
-                cm.style.left = cX+"px"
-                cm.style.display ="block"
-            })
-
+                // if its within the browser winow horizontally and vertically;
+                if (cXLimit - cX > cmWidth && cYLimit - cY < cmHeight) {
+                    cm.style.left = cX + "px";
+                    cm.style.top = cY - cmHeight + "px";
+                    cm.style.display = "block";
+                } else {
+                    if (cX === 0) {
+                        cm.style.left = 0;
+                    } else {
+                        cm.style.left = cX - cmWidth + "px";
+                    }
+                    if (cYLimit - cY < cmHeight) {
+                        cm.style.top = cY - cmHeight + "px";
+                    } else {
+                        cm.style.top = cY + "px";
+                    }
+                    cm.style.display = "block";
+                }
+                })
+                // an event listener on the left click, to hide the menu again. will only run if the menu is being displayed;
+                document.addEventListener("click", () => {
+                    if (cm.style.display === "block") {
+                        cm.style.display = "none";
+                        cm.style.top = 0;
+                        cm.style.left = 0;
+                    }
+                })
         </script>
